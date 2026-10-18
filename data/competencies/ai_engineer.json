@@ -1,0 +1,43 @@
+{
+  "role": "AI Engineer",
+  "category": "Competency Matrix",
+  "levels": {
+    "junior": {
+      "required_skills": [
+        "Python",
+        "Prompt Engineering",
+        "LLM API Integration (Gemini, OpenAI, Anthropic)",
+        "RAG Basics (Vector DBs, Embeddings, Chunking)",
+        "Git",
+        "FastAPI or Flask or Streamlit",
+        "Document Parsing (PyPDF, Text Extractors)"
+      ],
+      "tools": ["LangChain", "LlamaIndex", "ChromaDB", "FAISS", "HuggingFace Transformers"],
+      "architectural_concepts": [
+        "Retrieval-Augmented Generation (RAG) Architecture",
+        "Semantic Search vs Keyword Search",
+        "Context Window Optimization and Token Limits",
+        "Hallucination Mitigation Techniques"
+      ]
+    },
+    "mid_senior": {
+      "required_skills": [
+        "Advanced RAG (Hybrid Search BM25 + Dense Vectors, Re-ranking)",
+        "Fine-tuning (LoRA, QLoRA, PEFT)",
+        "Agentic Architectures (ReAct, Function Calling, Tool Use)",
+        "Evaluation Frameworks (Ragas, TruLens, DeepEval)",
+        "Vector Index Optimization (HNSW, IVF, Cosine vs Dot Product)",
+        "Streaming Response Handling & WebSockets",
+        "Docker & Containerized Microservices"
+      ],
+      "tools": ["LangGraph", "ChromaDB", "Qdrant", "vLLM", "Ollama", "Weights & Biases", "Docker"],
+      "architectural_concepts": [
+        "Reciprocal Rank Fusion (RRF)",
+        "Cross-Encoder Reranking",
+        "Semantic Caching (GPTCache)",
+        "Guardrails & PII Masking (NeMo Guardrails, Llama Guard)",
+        "RAG Triad: Context Relevance, Groundedness, Answer Relevance"
+      ]
+    }
+  }
+}

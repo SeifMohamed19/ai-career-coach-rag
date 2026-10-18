@@ -1,0 +1,43 @@
+{
+  "role": "Machine Learning Engineer",
+  "category": "Competency Matrix",
+  "levels": {
+    "junior": {
+      "required_skills": [
+        "Python",
+        "NumPy",
+        "Pandas",
+        "Scikit-Learn",
+        "Data Preprocessing & Feature Engineering",
+        "PyTorch or TensorFlow Fundamentals",
+        "Model Evaluation Metrics (Precision, Recall, F1, ROC-AUC)",
+        "SQL & Relational Databases"
+      ],
+      "tools": ["Jupyter", "Scikit-Learn", "PyTorch", "Git", "Docker"],
+      "architectural_concepts": [
+        "Supervised vs Unsupervised Learning",
+        "Overfitting, Underfitting, Regularization",
+        "Bias-Variance Tradeoff",
+        "Cross-Validation & Data Leakage Prevention"
+      ]
+    },
+    "mid_senior": {
+      "required_skills": [
+        "MLOps & CI/CD for Machine Learning",
+        "Distributed Training (DDP, FSDP, DeepSpeed)",
+        "Model Quantization & Pruning (INT8, FP4, TensorRT, ONNX)",
+        "Feature Stores & Data Pipelines",
+        "Model Serving at Low Latency (Triton, TorchServe, vLLM)",
+        "Experiment Tracking & Model Registry (MLflow, WandB)",
+        "Kubernetes & Orchestration (Kubeflow, Airflow)"
+      ],
+      "tools": ["MLflow", "Kubeflow", "Airflow", "DVC", "Docker", "Kubernetes", "ONNX"],
+      "architectural_concepts": [
+        "Data Drift & Concept Drift Monitoring",
+        "Zero-Downtime Model Deployment (Canary, Blue-Green)",
+        "Online vs Offline Feature Store Architecture",
+        "Hardware-Aware Inference Optimization"
+      ]
+    }
+  }
+}

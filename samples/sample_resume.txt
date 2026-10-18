@@ -1,0 +1,30 @@
+Alex Rivera
+Email: alex.rivera@example.com | GitHub: github.com/alexrivera-ai | LinkedIn: linkedin.com/in/alexrivera-ai
+
+PROFESSIONAL SUMMARY
+Recent Computer Science graduate with hands-on project experience in Computer Vision, Mobile AI integration, and LLM-powered applications. Passionate about machine learning pipelines, edge inference optimization, and modern generative AI architectures.
+
+EDUCATION
+Bachelor of Science in Computer Science | Magna Cum Laude
+Relevant Coursework: Data Structures & Algorithms, Machine Learning, Deep Learning, Operating Systems, Database Systems.
+
+TECHNICAL SKILLS
+- Languages: Python, C++, JavaScript, TypeScript, SQL
+- Machine Learning & CV: PyTorch, YOLOv8, OpenCV, Scikit-Learn, NumPy, Pandas
+- Web & Mobile: FastAPI, Next.js, React Native, REST APIs, Web Audio API
+- Developer Tools: Git, GitHub Actions, Docker, Linux
+
+FEATURED PROJECTS
+IntelliVision - Real-Time Currency Recognition for Visually Impaired
+- Built a mobile-accessible computer vision system using YOLOv8 trained on custom currency datasets.
+- Optimized model inference with ONNX runtime achieving under 45ms per frame on edge devices.
+- Integrated voice feedback pipeline for real-time auditory currency denomination output.
+
+Habit Coach - AI-Powered Personal Habit Tracker
+- Developed cross-platform React Native mobile app integrated with Google Gemini API for personalized habit recommendations.
+- Implemented structured JSON prompt parsing and secure API token management.
+- Built interactive analytics dashboard tracking habit consistency and streak statistics.
+
+Quran Audio Enhancer - Web-Based Audio Processing Platform
+- Architected a Next.js web application utilizing Web Audio API for real-time noise reduction and audio frequency equalization.
+- Deployed responsive interface supporting streaming recitation audio playback.

@@ -1,0 +1,66 @@
+{
+  "topic": "LLMs, NLP & RAG",
+  "questions": [
+    {
+      "id": "rag_vs_context",
+      "question": "Why use RAG instead of simply passing all documents directly into an LLM with a 1M+ token context window?",
+      "difficulty": "Medium",
+      "key_points_to_cover": [
+        "Inference cost scales with input tokens",
+        "Latency increases significantly with very large prompts",
+        "'Lost in the Middle' attention degradation phenomenon",
+        "Dynamic real-time information retrieval without retraining or repassing entire corpora",
+        "Precise source citation and provenance tracking"
+      ],
+      "tags": ["RAG", "LLM Architecture", "System Design", "Cost Optimization"]
+    },
+    {
+      "id": "hybrid_search",
+      "question": "What is Hybrid Search in vector databases, and why does combining dense embeddings with BM25 improve retrieval quality?",
+      "difficulty": "Medium",
+      "key_points_to_cover": [
+        "Dense vectors capture semantic nuance but fail on exact keyword lookups, rare codes, IDs, and jargon",
+        "BM25 is a term-frequency TF-IDF based sparse search that excels at exact lexical matching",
+        "Hybrid search merges both score lists using techniques like Reciprocal Rank Fusion (RRF) or convex combination",
+        "Prevents false negatives when users search for exact technical terms (e.g. 'CUDA 11.8' vs 'GPU driver')"
+      ],
+      "tags": ["Vector DB", "Embeddings", "BM25", "Hybrid Search", "RRF"]
+    },
+    {
+      "id": "chunking_strategies",
+      "question": "How do you decide on chunk size and chunk overlap when building a RAG ingestion pipeline? What are the trade-offs?",
+      "difficulty": "Medium",
+      "key_points_to_cover": [
+        "Small chunks: high precision semantic search, but lack global context and sentence boundaries",
+        "Large chunks: retain deep contextual meaning, but introduce noise and lower embedding specificity",
+        "Overlap (e.g. 10-20%): preserves semantic continuity across chunk boundaries",
+        "Semantic chunking / Hierarchical chunking / Parent-Child retrieval as modern mitigations"
+      ],
+      "tags": ["Chunking", "Ingestion", "Embedding"]
+    },
+    {
+      "id": "rag_hallucination_eval",
+      "question": "How do you systematically evaluate whether a RAG system is hallucinating or generating accurate answers?",
+      "difficulty": "Hard",
+      "key_points_to_cover": [
+        "RAG Triad: Context Relevance (retrieval quality), Groundedness / Faithfulness (is output supported by context), Answer Relevance",
+        "Evaluation frameworks like Ragas or TruLens using LLM-as-a-Judge",
+        "Synthetic test dataset generation from source documents",
+        "Golden QA reference datasets with human validation"
+      ],
+      "tags": ["Evaluation", "Ragas", "Hallucination", "Quality"]
+    },
+    {
+      "id": "embedding_selection",
+      "question": "How do you choose between Cosine Similarity, Dot Product, and Euclidean (L2) distance for vector retrieval?",
+      "difficulty": "Medium",
+      "key_points_to_cover": [
+        "Cosine similarity measures the angle between vectors, normalizing for vector magnitude (ideal for text of varying lengths)",
+        "Dot product takes into account both angle and magnitude; identical to cosine similarity when vectors are L2-normalized",
+        "Dot product is computationally faster when normalized",
+        "Euclidean (L2) measures straight-line geometric distance in space"
+      ],
+      "tags": ["Math", "Vector Search", "Cosine Similarity", "HNSW"]
+    }
+  ]
+}

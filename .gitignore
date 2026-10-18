@@ -1,0 +1,23 @@
+# Virtual Environment
+venv/
+.venv/
+env/
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.pytest_cache/
+
+# Environment Variables & Secrets
+.env
+
+# Vector DB & Storage
+data/chroma_db/
+*.db
+*.sqlite3
+
+# OS Specific
+.DS_Store
+Thumbs.db

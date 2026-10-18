@@ -1,0 +1,28 @@
+{
+  "framework": "Google XYZ Formula / STAR Method",
+  "guidelines": [
+    "Accomplished [X] as measured by [Y], by doing [Z]",
+    "Start every bullet with a strong past-tense action verb",
+    "Quantify impact with concrete metrics (latency reduction %, throughput, accuracy, cost savings)",
+    "Specify technical tools, architectures, and algorithms utilized"
+  ],
+  "action_verbs": {
+    "optimization": ["Engineered", "Optimized", "Accelerated", "Streamlined", "Reduced", "Scaled"],
+    "leadership_architecture": ["Architected", "Spearheaded", "Designed", "Formulated", "Pioneered"],
+    "implementation": ["Implemented", "Deployed", "Developed", "Integrated", "Containerized"]
+  },
+  "transformation_examples": [
+    {
+      "weak": "Worked on RAG and vector database for document search.",
+      "strong": "Architected a hybrid RAG pipeline combining BM25 sparse search and ChromaDB dense embeddings, reducing query hallucination by 38% and retrieval latency to under 120ms."
+    },
+    {
+      "weak": "Trained YOLO models for computer vision.",
+      "strong": "Engineered a real-time YOLOv8 currency detection pipeline on edge devices, achieving 94.2% mAP@50 with sub-45ms inference latency for visually impaired users."
+    },
+    {
+      "weak": "Built a backend using FastAPI and LLMs.",
+      "strong": "Developed an asynchronous FastAPI microservice integrating Gemini LLM with token-bucket rate limiting, serving 500+ daily requests with 99.8% uptime."
+    }
+  ]
+}

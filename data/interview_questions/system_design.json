@@ -1,0 +1,31 @@
+{
+  "topic": "AI & Distributed System Design",
+  "questions": [
+    {
+      "id": "scale_vector_search",
+      "question": "How would you design a low-latency vector search service querying over 100 million embeddings?",
+      "difficulty": "Hard",
+      "key_points_to_cover": [
+        "Approximate Nearest Neighbor (ANN) indexing: HNSW (Hierarchical Navigable Small World) or IVF (Inverted File Index)",
+        "Vector quantization: Product Quantization (PQ) or Scalar Quantization to compress vectors in memory",
+        "Horizontal sharding across distributed vector nodes",
+        "Caching layer: In-memory LRU or Redis for frequent queries",
+        "Two-stage retrieval: Fast ANN coarse retrieval followed by precision re-ranking on top candidates"
+      ],
+      "tags": ["System Design", "Vector DB", "HNSW", "Scalability", "Latency"]
+    },
+    {
+      "id": "rate_limiting_llm",
+      "question": "How do you handle API rate limits and high latency when integrating external LLMs into user-facing production systems?",
+      "difficulty": "Medium",
+      "key_points_to_cover": [
+        "Token bucket / Leaky bucket rate limiting algorithms",
+        "Exponential backoff with jitter on HTTP 429 errors",
+        "Semantic caching for repeated or similar queries",
+        "Asynchronous task queues (Celery, Redis Queue, RabbitMQ) for batch jobs",
+        "Streaming chunked responses via Server-Sent Events (SSE) to reduce perceived Time-To-First-Token (TTFT)"
+      ],
+      "tags": ["System Design", "Rate Limiting", "Caching", "Streaming"]
+    }
+  ]
+}

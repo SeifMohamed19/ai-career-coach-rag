@@ -1,0 +1,21 @@
+Role: AI Engineer / LLM Systems Developer
+Location: Remote / Hybrid
+Company: NextGen AI Labs
+
+About the Role:
+We are seeking an ambitious AI Engineer to design and deploy scalable Generative AI and Retrieval-Augmented Generation (RAG) applications. You will be responsible for building robust document ingestion pipelines, hybrid retrieval systems, and evaluating LLM outputs for latency, accuracy, and hallucination reduction.
+
+Key Responsibilities:
+- Architect and maintain production RAG pipelines integrating dense vector search with lexical BM25 retrieval.
+- Build and optimize vector database indexes (ChromaDB, Pinecone, or FAISS) for low-latency similarity queries.
+- Develop backend microservices using Python and FastAPI for serving LLM workflows.
+- Design evaluation frameworks using Ragas or TruLens to monitor context relevance, faithfulness, and answer quality.
+- Collaborate with frontend engineers to build intuitive user interfaces.
+
+Qualifications:
+- Bachelor's degree in Computer Science, Software Engineering, or related technical field.
+- Strong proficiency in Python and modern ML libraries (PyTorch, Hugging Face Transformers).
+- Practical experience with Vector Databases (ChromaDB, FAISS) and embedding models.
+- Understanding of prompt engineering, function calling, and structured outputs.
+- Familiarity with Docker containerization and Git version control.
+- Nice to have: Experience with hybrid search algorithms (Reciprocal Rank Fusion) and LLM evaluation tools.
