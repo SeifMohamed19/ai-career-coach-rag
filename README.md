@@ -102,7 +102,7 @@ flowchart TD
 ### 1. Clone & Set Up Environment
 ```bash
 # Clone the repository
-git clone https://github.com/your-username/ai-career-coach-rag.git
+git clone https://github.com/SeifMohamed19/ai-career-coach-rag.git
 cd ai-career-coach-rag
 
 # Create and activate a virtual environment
