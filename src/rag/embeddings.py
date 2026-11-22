@@ -17,7 +17,10 @@ class LocalEmbeddingEngine:
         if cls._instance is None:
             cls._instance = super(LocalEmbeddingEngine, cls).__new__(cls)
             logger.info(f"Loading local embedding model: '{EMBEDDING_MODEL_NAME}'...")
-            cls._model = SentenceTransformer(EMBEDDING_MODEL_NAME)
+            try:
+                cls._model = SentenceTransformer(EMBEDDING_MODEL_NAME, local_files_only=True)
+            except Exception:
+                cls._model = SentenceTransformer(EMBEDDING_MODEL_NAME)
             logger.info("Local embedding model loaded successfully.")
         return cls._instance
 

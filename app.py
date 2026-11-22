@@ -1,6 +1,7 @@
 import streamlit as st
 from pathlib import Path
 import os
+import requests
 
 from src.config import BASE_DIR, DATA_DIR, GEMINI_API_KEY
 from src.parsers.resume_parser import ResumeParser
@@ -26,6 +27,17 @@ from src.services.analyzer_service import AnalyzerService
 from src.services.resume_enhancer import ResumeEnhancer
 from src.services.interview_service import InterviewService
 from src.services.roadmap_service import RoadmapService
+
+# Backend API Configuration
+BACKEND_API_URL = os.getenv("BACKEND_API_URL", "http://localhost:8000").rstrip("/")
+
+def get_backend_status() -> bool:
+    """Checks if the FastAPI backend microservice is reachable."""
+    try:
+        res = requests.get(f"{BACKEND_API_URL}/health", timeout=1.0)
+        return res.status_code == 200
+    except Exception:
+        return False
 
 # Page Setup
 st.set_page_config(
@@ -135,8 +147,18 @@ resume_enhancer = ResumeEnhancer(retriever, llm_client)
 interview_service = InterviewService(retriever, llm_client)
 roadmap_service = RoadmapService(retriever, llm_client)
 
+backend_online = get_backend_status()
+
 with st.sidebar:
     st.markdown("---")
+    st.subheader("🌐 Architecture Status")
+    if backend_online:
+        st.success(f"🟢 **FastAPI Service**: Connected (`{BACKEND_API_URL}`)")
+        st.markdown(f"🔗 [Interactive Swagger Docs]({BACKEND_API_URL}/docs)")
+    else:
+        st.info("🟡 **Architecture**: Embedded In-Memory Mode")
+        st.caption("Tip: Run `uvicorn src.api.main:app --port 8000` or Docker for microservice mode.")
+
     if llm_client.is_available:
         st.success("🟢 **LLM Active**: Google Gemini API Connected")
     else:
@@ -190,38 +212,93 @@ if run_analysis:
         st.warning("⚠️ Please provide both a Resume and a Job Description to proceed.")
     else:
         with st.spinner("Executing Hybrid RAG Retrieval & Multi-dimensional Gap Analysis..."):
-            # 1. Gap Analysis
-            analysis_result = analyzer_service.analyze(
-                resume_text=resume_input,
-                jd_text=jd_input,
-                target_role=target_role_name
-            )
-            st.session_state["analysis_result"] = analysis_result
+            executed_via_api = False
+            if backend_online:
+                try:
+                    # 1. Gap Analysis via FastAPI
+                    res_a = requests.post(
+                        f"{BACKEND_API_URL}/api/v1/analyze",
+                        json={
+                            "resume_text": resume_input,
+                            "job_description": jd_input,
+                            "target_role": target_role_name
+                        },
+                        timeout=30.0
+                    )
+                    if res_a.status_code == 200:
+                        analysis_result = res_a.json()
+                        st.session_state["analysis_result"] = analysis_result
 
-            # 2. Resume Enhancements
-            enhancement_result = resume_enhancer.enhance_bullets(
-                raw_bullets_or_experience=resume_input,
-                target_jd=jd_input
-            )
-            st.session_state["enhancement_result"] = enhancement_result
+                        # 2. Resume Enhancements via FastAPI
+                        res_e = requests.post(
+                            f"{BACKEND_API_URL}/api/v1/enhance-resume",
+                            json={
+                                "resume_text": resume_input,
+                                "job_description": jd_input
+                            },
+                            timeout=30.0
+                        )
+                        st.session_state["enhancement_result"] = res_e.json()
 
-            # 3. Targeted Interview Questions
-            missing_skills = analysis_result["metrics"]["missing_keywords"]
-            interview_result = interview_service.generate_interview_prep(
-                missing_skills=missing_skills,
-                target_role=target_role_name
-            )
-            st.session_state["interview_result"] = interview_result
+                        # 3. Targeted Interview Questions via FastAPI
+                        missing_skills = analysis_result["metrics"]["missing_keywords"]
+                        res_i = requests.post(
+                            f"{BACKEND_API_URL}/api/v1/interview/prep",
+                            json={
+                                "missing_skills": missing_skills,
+                                "target_role": target_role_name
+                            },
+                            timeout=30.0
+                        )
+                        st.session_state["interview_result"] = res_i.json()
 
-            # 4. Learning Roadmap
-            roadmap_result = roadmap_service.generate_roadmap(
-                missing_skills=missing_skills,
-                target_role=target_role_name,
-                duration_weeks=4
-            )
-            st.session_state["roadmap_result"] = roadmap_result
+                        # 4. Learning Roadmap via FastAPI
+                        res_r = requests.post(
+                            f"{BACKEND_API_URL}/api/v1/roadmap",
+                            json={
+                                "missing_skills": missing_skills,
+                                "target_role": target_role_name,
+                                "duration_weeks": 4
+                            },
+                            timeout=30.0
+                        )
+                        st.session_state["roadmap_result"] = res_r.json()
+                        executed_via_api = True
+                except Exception as ex:
+                    # Fall back to local services
+                    executed_via_api = False
 
-        st.success("✅ Analysis & Coaching Pipeline completed successfully!")
+            if not executed_via_api:
+                # Local In-Memory Fallback Execution
+                analysis_result = analyzer_service.analyze(
+                    resume_text=resume_input,
+                    jd_text=jd_input,
+                    target_role=target_role_name
+                )
+                st.session_state["analysis_result"] = analysis_result
+
+                enhancement_result = resume_enhancer.enhance_bullets(
+                    raw_bullets_or_experience=resume_input,
+                    target_jd=jd_input
+                )
+                st.session_state["enhancement_result"] = enhancement_result
+
+                missing_skills = analysis_result["metrics"]["missing_keywords"]
+                interview_result = interview_service.generate_interview_prep(
+                    missing_skills=missing_skills,
+                    target_role=target_role_name
+                )
+                st.session_state["interview_result"] = interview_result
+
+                roadmap_result = roadmap_service.generate_roadmap(
+                    missing_skills=missing_skills,
+                    target_role=target_role_name,
+                    duration_weeks=4
+                )
+                st.session_state["roadmap_result"] = roadmap_result
+
+        success_msg = "✅ Pipeline completed via FastAPI Microservice!" if executed_via_api else "✅ Analysis Pipeline completed (In-Memory Engine)!"
+        st.success(success_msg)
 
 # Display Results if Available
 if "analysis_result" in st.session_state:
@@ -319,7 +396,22 @@ if "analysis_result" in st.session_state:
         if st.button("Evaluate My Answer"):
             if user_answer_text.strip():
                 with st.spinner("Senior AI Interviewer evaluating response..."):
-                    eval_output = interview_service.evaluate_answer(sample_q, user_answer_text)
+                    eval_output = None
+                    if backend_online:
+                        try:
+                            eval_res = requests.post(
+                                f"{BACKEND_API_URL}/api/v1/interview/evaluate",
+                                json={"question": sample_q, "user_answer": user_answer_text},
+                                timeout=20.0
+                            )
+                            if eval_res.status_code == 200:
+                                eval_output = eval_res.json()["evaluation"]
+                        except Exception:
+                            eval_output = None
+
+                    if not eval_output:
+                        eval_output = interview_service.evaluate_answer(sample_q, user_answer_text)
+
                     st.session_state["eval_output"] = eval_output
             else:
                 st.warning("Please type an answer before evaluating.")

@@ -1,0 +1,27 @@
+# Environments & Virtual Envs
+venv/
+.venv/
+env/
+
+# Python cache & compiled bytecode
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.pytest_cache/
+
+# Local databases & secrets
+data/chroma_db/
+*.db
+*.sqlite3
+.env
+
+# Git & IDE
+.git/
+.gitignore
+.vscode/
+.idea/
+
+# OS Specific
+.DS_Store
+Thumbs.db
